@@ -1,44 +1,77 @@
-""" Userbot start point """
-
-
 import sys
-from importlib import import_module
-from platform import python_version
 
-from pytgcalls import __version__ as pytgcalls
-from pytgcalls import idle
-from telethon import version
+import dragons
+from dragons import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
 
-from userbot import BOT_TOKEN
-from userbot import BOT_VER as ubotversion
-from userbot import LOGS, bot
-from userbot.clients import wolf_userbot_on, wolfmulti
-from userbot.modules import ALL_MODULES
-from userbot.utils import autobot, checking
+from .Config import Config
+from .core.logger import logging
+from .core.session import wolf
+from .utils import (
+    add_bot_to_logger_group,
+    ipchange,
+    load_plugins,
+    setup_bot,
+    startupmessage,
+    verifyLoggerGroup,
+)
+
+LOGS = logging.getLogger("Wolf-Userbot")
+
+print(wolf.__copyright__)
+print("Licensed di bawah ketentuan " + wolf.__license__)
+
+cmdhr = Config.CMD_HANDLER
 
 try:
-    for module_name in ALL_MODULES:
-        imported_module = import_module("userbot.modules." + module_name)
-    client = wolfmulti()
-    total = 5 - client
-    LOGS.info(f"Total Clients = {total} User")
-    LOGS.info(f"Python Version - {python_version()}")
-    LOGS.info(f"Telethon Version - {version.__version__}")
-    LOGS.info(f"PyTgCalls Version - {pytgcalls.__version__}")
-    LOGS.info(f"Wolf-Userbot Version - {ubotversion} [🐺 BERHASIL DIAKTIFKAN! 🐺]")
-except (ConnectionError, KeyboardInterrupt, NotImplementedError, SystemExit):
-    pass
-except BaseException as e:
-    LOGS.info(str(e), exc_info=True)
-    sys.exit(1)
+    LOGS.info("Memulai Userbot")
+    drgub.loop.run_until_complete(setup_bot())
+    LOGS.info("TG Bot Startup Berhasil")
+except Exception as e:
+    LOGS.error(f"{str(e)}")
+    sys.exit()
 
 
-bot.loop.run_until_complete(checking())
-bot.loop.run_until_complete(wolf_userbot_on())
-if not BOT_TOKEN:
-    bot.loop.run_until_complete(autobot())
-idle()
+class WolfCheck:
+    def __init__(self):
+        self.sucess = True
+
+
+Wolfcheck = WolfCheck()
+
+
+async def startup_process():
+    check = await ipchange()
+    if check is not None:
+        Drgcheck.sucess = False
+        return
+    await verifyLoggerGroup()
+    await load_plugins("plugins")
+    await load_plugins("assistant")
+    print("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
+    print("Yay dragons userbot pengguna Anda secara resmi berfungsi!!!")
+    print(
+        f"Selamat, sekarang ketik {cmdhr}alive untuk melihat pesan jika dragons-userbot aktif\
+        \nJika Anda membutuhkan bantuan, bisa ke https://t.me/KingUserbotSupport"
+    )
+    print("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
+    await verifyLoggerGroup()
+    await add_bot_to_logger_group(BOTLOG_CHATID)
+    if PM_LOGGER_GROUP_ID != -100:
+        await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
+    await startupmessage()
+    Drgcheck.sucess = True
+    return
+
+
+wolf.loop.run_until_complete(startup_process())
+
 if len(sys.argv) not in (1, 3, 4):
-    bot.disconnect()
+    wolf.disconnect()
+elif not Wolfcheck.sucess:
+    if HEROKU_APP is not None:
+        HEROKU_APP.restart()
 else:
-    bot.run_until_disconnected()
+    try:
+        wolf.run_until_disconnected()
+    except ConnectionError:
+        pass
