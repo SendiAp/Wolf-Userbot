@@ -277,7 +277,7 @@ def command(**args):
     def decorator(func):
         if allow_edited_updates:
             wolf.add_event_handler(func, MessageEdited(**args))
-        drgub.add_event_handler(func, NewMessage(**args))
+        wolf.add_event_handler(func, NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
         except BaseException:
