@@ -1,9 +1,13 @@
-FROM vckyouuu/geez:slim-buster
 
-RUN git clone -b master https://github.com/SendiAp/Wolf-Userbot /home/Wolf/ \
-    && chmod 777 /home/Wolf \
-    && mkdir /home/Wolf/bin/
+FROM apiskinguserbot/kinguserbot:Buster
 
-WORKDIR /home/Wolf/
+RUN git clone https://github.com/SendiAp/Wolf-Userbot.git /root/Wolf
 
-CMD [ "bash", "start" ]
+WORKDIR /root/Wolf
+
+# Install requirements
+RUN pip3 install -U -r requirements.txt
+
+ENV PATH="/home/Wolf/bin:$PATH"
+
+CMD ["python3","-m","Wolf"]
