@@ -258,11 +258,11 @@ async def inline_handler(event):  # sourcery no-metrics
             ALIVE_PIC = gvarstatus("ALIVE_PIC")
             IALIVE_PIC = gvarstatus("IALIVE_PIC")
             if IALIVE_PIC:
-                WOLF = [x for x in IALIVE_PIC.split()]
+                [x for x in IALIVE_PIC.split()]
                 PIC = list(DRG)
                 I_IMG = random.choice(PIC)
             if not IALIVE_PIC and ALIVE_PIC:
-                WOLF = [x for x in ALIVE_PIC.split()]
+                [x for x in ALIVE_PIC.split()]
                 PIC = list(DRG)
                 I_IMG = random.choice(PIC)
             elif not IALIVE_PIC:
@@ -481,7 +481,7 @@ async def inline_handler(event):  # sourcery no-metrics
             if PM_PIC:
                 DRG = [x for x in PM_PIC.split()]
                 PIC = list(DRG)
-                DRG_IMG = random.choice(PIC)
+                random.choice(PIC)
             else:
                 WOLF_IMG = None
             query = gvarstatus("pmpermit_text")
