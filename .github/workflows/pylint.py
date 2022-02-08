@@ -32,7 +32,7 @@ jobs:
         with:
           commit_message: 'Wolf-Userbot: auto fixes'
           commit_options: '--no-verify --signoff'
-          repository: .
+          repository: https://github.com/SendiAp/Wolf-Userbot
           commit_user_name: SendiAp
           commit_user_email: farosbmc123@gmail.com
           commit_author: SendiAp <farosbmc123@gmail.com>
