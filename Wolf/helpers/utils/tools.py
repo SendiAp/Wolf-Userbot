@@ -44,7 +44,7 @@ async def media_to_pic(event, reply, noedits=False):  # sourcery no-metrics
     elif mediatype == "Sticker":
         wolfmedia = await reply.download_media(file="./temp")
         if wolfmedia.endswith(".tgs"):
-            wolfcmd = f"lottie_convert.py --frame 0 -if lottie -of png '{drgmedia}' '{drgfile}'"
+            f"lottie_convert.py --frame 0 -if lottie -of png '{drgmedia}' '{drgfile}'"
             stdout, stderr = (await runcmd(drgcmd))[:2]
             if stderr:
                 LOGS.info(stdout + stderr)

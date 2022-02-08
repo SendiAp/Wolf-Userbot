@@ -1,6 +1,5 @@
 import sys
 
-import dragons
 from dragons import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
 
 from .Config import Config
