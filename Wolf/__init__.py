@@ -10,7 +10,7 @@ from .sql_helper.globals import addgvar, delgvar, gvarstatus
 __version__ = "beta"
 __license__ = "MIT License"
 __author__ = "Wolf-Userbot <https://github.com/SendiAp/Wolf-Userbot>"
-__copyright__ = "(C) Copyright 2021 TeamDragons  " + __author__
+__copyright__ = "(C) Copyright 2021 Wolf-Userbot  " + __author__
 
 drgub.version = __version__
 drgub.tgbot.version = __version__
