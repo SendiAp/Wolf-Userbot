@@ -1,6 +1,6 @@
 import sys
 
-from dragons import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
+from Wolf import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
 
 from .Config import Config
 from .core.logger import logging
@@ -23,7 +23,7 @@ cmdhr = Config.CMD_HANDLER
 
 try:
     LOGS.info("Memulai Userbot")
-    drgub.loop.run_until_complete(setup_bot())
+    wolf.loop.run_until_complete(setup_bot())
     LOGS.info("TG Bot Startup Berhasil")
 except Exception as e:
     LOGS.error(f"{str(e)}")
@@ -41,7 +41,7 @@ Wolfcheck = WolfCheck()
 async def startup_process():
     check = await ipchange()
     if check is not None:
-        Drgcheck.sucess = False
+        Wlfcheck.sucess = False
         return
     await verifyLoggerGroup()
     await load_plugins("plugins")
@@ -58,7 +58,7 @@ async def startup_process():
     if PM_LOGGER_GROUP_ID != -100:
         await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
     await startupmessage()
-    Drgcheck.sucess = True
+    Wlfcheck.sucess = True
     return
 
 
