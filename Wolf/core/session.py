@@ -3,6 +3,10 @@ import sys
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from telethon.sessions import StringSession
 
+
+from ..Config import Config
+from .client import WolfUserBotClient
+
 from ..Config import Config
 
 __version__ = "beta"
