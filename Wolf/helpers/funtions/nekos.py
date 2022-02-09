@@ -112,7 +112,7 @@ async def baguette(text):
         f"https://nekobot.xyz/api/imagegen?type=baguette&url={text}"
     ).json()
     sandy = r.get("message")
-    drgurl = url(Wolf)
+    url(Wolf)
     if not wolfurl:
         return "check syntax once more"
     with open("temp.png", "wb") as f:
@@ -140,7 +140,7 @@ async def threats(text):
 async def lolice(text):
     r = requests.get(f"https://nekobot.xyz/api/imagegen?type=lolice&url={text}").json()
     sandy = r.get("message")
-    drgurl = url(Wolf)
+    url(Wolf)
     if not wolfurl:
         return "check syntax once more"
     with open("temp.png", "wb") as f:
@@ -204,7 +204,7 @@ async def phcomment(text1, text2, text3):
         f"https://nekobot.xyz/api/imagegen?type=phcomment&image={text1}&text={text2}&username={text3}"
     ).json()
     sandy = r.get("message")
-    drgurl = url(Wolf)
+    url(Wolf)
     if not wolfurl:
         return "check syntax once more"
     with open("temp.png", "wb") as f:
