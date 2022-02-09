@@ -40,7 +40,7 @@ GLOBALLIST_SQL_ = GLOBALLIST_SQL()
 
 def add_to_list(keywoard, group_id):
     with WLFGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = WlfGloballist(keywoard, str(group_id))
+        broadcast_group = WolfGloballist(keywoard, str(group_id))
         SESSION.merge(broadcast_group)
         SESSION.commit()
         GLOBALLIST_SQL_.GLOBALLIST_VALUES.setdefault(keywoard, set()).add(str(group_id))
@@ -48,7 +48,7 @@ def add_to_list(keywoard, group_id):
 
 def rm_from_list(keywoard, group_id):
     with WLFGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(WlfGloballist).get((keywoard, str(group_id)))
+        broadcast_group = SESSION.query(WolfGloballist).get((keywoard, str(group_id)))
         if broadcast_group:
             if str(group_id) in GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()):
                 GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()).remove(
@@ -64,14 +64,14 @@ def rm_from_list(keywoard, group_id):
 
 def is_in_list(keywoard, group_id):
     with WLFGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(DrgGloballist).get((keywoard, str(group_id)))
+        broadcast_group = SESSION.query(WolfGloballist).get((keywoard, str(group_id)))
         return bool(broadcast_group)
 
 
 def del_keyword_list(keywoard):
     with WLFGLOBALLIST_INSERTION_LOCK:
         broadcast_group = (
-            SESSION.query(WlfGloballist.keywoard)
+            SESSION.query(WolfGloballist.keywoard)
             .filter(DrgGloballist.keywoard == keywoard)
             .delete()
         )
@@ -85,7 +85,7 @@ def get_collection_list(keywoard):
 
 def get_list_keywords():
     try:
-        chats = SESSION.query(WlfGloballist.keywoard).distinct().all()
+        chats = SESSION.query(WolfGloballist.keywoard).distinct().all()
         return [i[0] for i in chats]
     finally:
         SESSION.close()
@@ -93,7 +93,7 @@ def get_list_keywords():
 
 def num_list():
     try:
-        return SESSION.query(WlfGloballist).count()
+        return SESSION.query(WolfGloballist).count()
     finally:
         SESSION.close()
 
@@ -101,7 +101,7 @@ def num_list():
 def num_list_keyword(keywoard):
     try:
         return (
-            SESSION.query(WlfGloballist.keywoard)
+            SESSION.query(WolfGloballist.keywoard)
             .filter(WlfGloballist.keywoard == keywoard)
             .count()
         )
@@ -111,14 +111,14 @@ def num_list_keyword(keywoard):
 
 def num_list_keywords():
     try:
-        return SESSION.query(func.count(distinct(DrgGloballist.keywoard))).scalar()
+        return SESSION.query(func.count(distinct(WolfGloballist.keywoard))).scalar()
     finally:
         SESSION.close()
 
 
 def __load_chat_lists():
     try:
-        chats = SESSION.query(WlfGloballist.keywoard).distinct().all()
+        chats = SESSION.query(WolfGloballist.keywoard).distinct().all()
         for (keywoard,) in chats:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[keywoard] = []
 
