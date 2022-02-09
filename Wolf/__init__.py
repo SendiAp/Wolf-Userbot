@@ -12,13 +12,13 @@ __license__ = "MIT License"
 __author__ = "Wolf-Userbot <https://github.com/SendiAp/Wolf-Userbot>"
 __copyright__ = "(C) Copyright 2021 Wolf-Userbot  " + __author__
 
-drgub.version = __version__
-drgub.tgbot.version = __version__
+wlf.version = __version__
+wlf.tgbot.version = __version__
 LOGS = logging.getLogger("Wolf-Userbot")
 bot = wolf
 
 StartTime = time.time()
-drgversion = "beta"
+wlfversion = "beta"
 
 if Config.UPSTREAM_REPO == "Wolf":
     UPSTREAM_REPO_URL = "https://github.com/SendiAp/Wolf-Userbot"
