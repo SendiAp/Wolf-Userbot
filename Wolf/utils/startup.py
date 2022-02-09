@@ -80,7 +80,7 @@ async def startupmessage():
     try:
         if msg_details:
             await wolf.check_testcases()
-            message = await drgub.get_messages(msg_details[0], ids=msg_details[1])
+            message = await wolf.get_messages(msg_details[0], ids=msg_details[1])
             text = message.text + "\n\n**Ok Bot is Back and Alive.**"
             await wolf.edit_message(msg_details[0], msg_details[1], text)
             if gvarstatus("restartupdate") is not None:
@@ -206,7 +206,7 @@ async def verifyLoggerGroup():
                 + str(e)
             )
     else:
-        descript = "Don't delete this group or change to group(If you change group all your previous snips, welcome will be lost.)"
+        descript = "Jangan hapus grup ini atau ubah ke grup (Jika Anda mengubah grup semua potongan sebelumnya, selamat datang akan hilang.)"
         _, groupid = await create_supergroup(
             "Wolf Userbot BotLog Group", wolf, Config.TG_BOT_USERNAME, descript
         )
@@ -217,7 +217,7 @@ async def verifyLoggerGroup():
         flag = True
     if PM_LOGGER_GROUP_ID != -100:
         try:
-            entity = await drgub.get_entity(PM_LOGGER_GROUP_ID)
+            entity = await wolf.get_entity(PM_LOGGER_GROUP_ID)
             if not isinstance(entity, types.User) and not entity.creator:
                 if entity.default_banned_rights.send_messages:
                     LOGS.info(
