@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, UnicodeText, distinct, func
 from . import BASE, SESSION
 
 
-class DrgGloballist(BASE):
-    __tablename__ = "drgglobal_list"
+class WolfGloballist(BASE):
+    __tablename__ = "wlfglobal_list"
     keywoard = Column(UnicodeText, primary_key=True)
     group_id = Column(String, primary_key=True, nullable=False)
 
@@ -15,19 +15,19 @@ class DrgGloballist(BASE):
         self.group_id = str(group_id)
 
     def __repr__(self):
-        return "<Dragons global values '%s' for %s>" % (self.group_id, self.keywoard)
+        return "<Wolf global values '%s' for %s>" % (self.group_id, self.keywoard)
 
     def __eq__(self, other):
         return bool(
-            isinstance(other, DrgGloballist)
+            isinstance(other, WolfGloballist)
             and self.keywoard == other.keywoard
             and self.group_id == other.group_id
         )
 
 
-DrgGloballist.__table__.create(checkfirst=True)
+WolfGloballist.__table__.create(checkfirst=True)
 
-DRGGLOBALLIST_INSERTION_LOCK = threading.RLock()
+WLFGLOBALLIST_INSERTION_LOCK = threading.RLock()
 
 
 class GLOBALLIST_SQL:
@@ -39,16 +39,16 @@ GLOBALLIST_SQL_ = GLOBALLIST_SQL()
 
 
 def add_to_list(keywoard, group_id):
-    with DRGGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = DrgGloballist(keywoard, str(group_id))
+    with WLFGLOBALLIST_INSERTION_LOCK:
+        broadcast_group = WlfGloballist(keywoard, str(group_id))
         SESSION.merge(broadcast_group)
         SESSION.commit()
         GLOBALLIST_SQL_.GLOBALLIST_VALUES.setdefault(keywoard, set()).add(str(group_id))
 
 
 def rm_from_list(keywoard, group_id):
-    with DRGGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(DrgGloballist).get((keywoard, str(group_id)))
+    with WLFGLOBALLIST_INSERTION_LOCK:
+        broadcast_group = SESSION.query(WlfGloballist).get((keywoard, str(group_id)))
         if broadcast_group:
             if str(group_id) in GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()):
                 GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()).remove(
@@ -63,15 +63,15 @@ def rm_from_list(keywoard, group_id):
 
 
 def is_in_list(keywoard, group_id):
-    with DRGGLOBALLIST_INSERTION_LOCK:
+    with WLFGLOBALLIST_INSERTION_LOCK:
         broadcast_group = SESSION.query(DrgGloballist).get((keywoard, str(group_id)))
         return bool(broadcast_group)
 
 
 def del_keyword_list(keywoard):
-    with DRGGLOBALLIST_INSERTION_LOCK:
+    with WLFGLOBALLIST_INSERTION_LOCK:
         broadcast_group = (
-            SESSION.query(DrgGloballist.keywoard)
+            SESSION.query(WlfGloballist.keywoard)
             .filter(DrgGloballist.keywoard == keywoard)
             .delete()
         )
@@ -85,7 +85,7 @@ def get_collection_list(keywoard):
 
 def get_list_keywords():
     try:
-        chats = SESSION.query(DrgGloballist.keywoard).distinct().all()
+        chats = SESSION.query(WlfGloballist.keywoard).distinct().all()
         return [i[0] for i in chats]
     finally:
         SESSION.close()
@@ -93,7 +93,7 @@ def get_list_keywords():
 
 def num_list():
     try:
-        return SESSION.query(DrgGloballist).count()
+        return SESSION.query(WlfGloballist).count()
     finally:
         SESSION.close()
 
@@ -101,8 +101,8 @@ def num_list():
 def num_list_keyword(keywoard):
     try:
         return (
-            SESSION.query(DrgGloballist.keywoard)
-            .filter(DrgGloballist.keywoard == keywoard)
+            SESSION.query(WlfGloballist.keywoard)
+            .filter(WlfGloballist.keywoard == keywoard)
             .count()
         )
     finally:
@@ -118,11 +118,11 @@ def num_list_keywords():
 
 def __load_chat_lists():
     try:
-        chats = SESSION.query(DrgGloballist.keywoard).distinct().all()
+        chats = SESSION.query(WlfGloballist.keywoard).distinct().all()
         for (keywoard,) in chats:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[keywoard] = []
 
-        all_groups = SESSION.query(DrgGloballist).all()
+        all_groups = SESSION.query(WlfGloballist).all()
         for x in all_groups:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[x.keywoard] += [x.group_id]
 
