@@ -16,7 +16,7 @@ loop = None
 if Config.STRING_SESSION:
     session = StringSession(str(Config.STRING_SESSION))
 else:
-    session = "Wolf-Userbot"
+    session = "Dragons-Userbot"
 
 try:
     wolf = WolfUserBotClient(
@@ -35,7 +35,7 @@ except Exception as e:
 
 
 wolf.tgbot = tgbot = WolfUserBotClient(
-    session="WolfTgbot",
+    session="WlfTgbot",
     api_id=Config.APP_ID,
     api_hash=Config.API_HASH,
     loop=loop,
