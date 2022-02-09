@@ -9,7 +9,6 @@ from wand.color import Color
 from wand.drawing import Drawing
 from wand.image import Image as drgimage
 
-from .utils import _wolfutils
 
 MARGINS = [50, 150, 250, 350, 450]
 
