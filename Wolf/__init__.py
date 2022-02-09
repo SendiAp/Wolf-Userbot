@@ -14,7 +14,7 @@ __copyright__ = "(C) Copyright 2021 Wolf-Userbot  " + __author__
 
 wolf.version = __version__
 wolf.tgbot.version = __version__
-LOGS = logging.getLogger("Dragons-Userbot")
+LOGS = logging.getLogger("Wolf-Userbot")
 bot = wolf
 
 StartTime = time.time()
