@@ -16,6 +16,6 @@ class Development(Config):
     # create a private group and a rose bot to it and type /id and paste that id here (replace that -100 with that group id)
     PRIVATE_GROUP_BOT_API_ID = -100
     # command handler
-    COMMAND_HAND_LER = "."
+    CMD_HANDLER = "."
     # command hanler for sudo
-    SUDO_COMMAND_HAND_LER = "."
+    SUDO_CMD_HANDLER = "."
