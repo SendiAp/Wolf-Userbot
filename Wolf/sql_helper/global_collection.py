@@ -22,15 +22,15 @@ class Wolf_GlobalCollection(BASE):
 
     def __eq__(self, other):
         return bool(
-            isinstance(other, Drg_GlobalCollection)
+            isinstance(other, Wolf_GlobalCollection)
             and self.keywoard == other.keywoard
             and self.contents == other.contents
         )
 
 
-Drg_GlobalCollection.__table__.create(checkfirst=True)
+Wolf_GlobalCollection.__table__.create(checkfirst=True)
 
-DRG_GLOBALCOLLECTION = threading.RLock()
+WLF_GLOBALCOLLECTION = threading.RLock()
 
 
 class COLLECTION_SQL:
@@ -42,7 +42,7 @@ COLLECTION_SQL_ = COLLECTION_SQL()
 
 
 def add_to_collectionlist(keywoard, contents):
-    with DRG_GLOBALCOLLECTION:
+    with WLF_GLOBALCOLLECTION:
         keyword_items = Wolf_GlobalCollection(keywoard, tuple(contents))
 
         SESSION.merge(keyword_items)
@@ -51,8 +51,8 @@ def add_to_collectionlist(keywoard, contents):
 
 
 def rm_from_collectionlist(keywoard, contents):
-    with DRG_GLOBALCOLLECTION:
-        keyword_items = SESSION.query(Drg_GlobalCollection).get(
+    with WLF_GLOBALCOLLECTION:
+        keyword_items = SESSION.query(Wolf_GlobalCollection).get(
             (keywoard, tuple(contents))
         )
         if keyword_items:
@@ -69,16 +69,16 @@ def rm_from_collectionlist(keywoard, contents):
 
 
 def is_in_collectionlist(keywoard, contents):
-    with DRG_GLOBALCOLLECTION:
+    with WLF_GLOBALCOLLECTION:
         keyword_items = COLLECTION_SQL_.CONTENTS_LIST.get(keywoard, set())
         return any(tuple(contents) == list1 for list1 in keyword_items)
 
 
 def del_keyword_collectionlist(keywoard):
-    with DRG_GLOBALCOLLECTION:
+    with WLF_GLOBALCOLLECTION:
         keyword_items = (
-            SESSION.query(Drg_GlobalCollection.keywoard)
-            .filter(Drg_GlobalCollection.keywoard == keywoard)
+            SESSION.query(Wolf_GlobalCollection.keywoard)
+            .filter(Wolf_GlobalCollection.keywoard == keywoard)
             .delete()
         )
         COLLECTION_SQL_.CONTENTS_LIST.pop(keywoard)
@@ -91,7 +91,7 @@ def get_item_collectionlist(keywoard):
 
 def get_collectionlist_items():
     try:
-        chats = SESSION.query(Drg_GlobalCollection.keywoard).distinct().all()
+        chats = SESSION.query(Wolf_GlobalCollection.keywoard).distinct().all()
         return [i[0] for i in chats]
     finally:
         SESSION.close()
@@ -99,7 +99,7 @@ def get_collectionlist_items():
 
 def num_collectionlist():
     try:
-        return SESSION.query(Drg_GlobalCollection).count()
+        return SESSION.query(Wolf_GlobalCollection).count()
     finally:
         SESSION.close()
 
@@ -107,8 +107,8 @@ def num_collectionlist():
 def num_collectionlist_item(keywoard):
     try:
         return (
-            SESSION.query(Drg_GlobalCollection.keywoard)
-            .filter(Drg_GlobalCollection.keywoard == keywoard)
+            SESSION.query(Wolf_GlobalCollection.keywoard)
+            .filter(Wolf_GlobalCollection.keywoard == keywoard)
             .count()
         )
     finally:
@@ -118,7 +118,7 @@ def num_collectionlist_item(keywoard):
 def num_collectionlist_items():
     try:
         return SESSION.query(
-            func.count(distinct(Drg_GlobalCollection.keywoard))
+            func.count(distinct(Wolf_GlobalCollection.keywoard))
         ).scalar()
     finally:
         SESSION.close()
@@ -126,11 +126,11 @@ def num_collectionlist_items():
 
 def __load_item_collectionlists():
     try:
-        chats = SESSION.query(Drg_GlobalCollection.keywoard).distinct().all()
+        chats = SESSION.query(Wolf_GlobalCollection.keywoard).distinct().all()
         for (keywoard,) in chats:
             COLLECTION_SQL_.CONTENTS_LIST[keywoard] = []
 
-        all_groups = SESSION.query(Drg_GlobalCollection).all()
+        all_groups = SESSION.query(Wolf_GlobalCollection).all()
         for x in all_groups:
             COLLECTION_SQL_.CONTENTS_LIST[x.keywoard] += [x.contents]
 
