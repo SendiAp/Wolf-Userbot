@@ -31,7 +31,7 @@ except Exception as e:
 
 
 wolf.tgbot = tgbot = WolfUserBotClient(
-    session="DrgTgbot",
+    session="WolfTgbot",
     api_id=Config.APP_ID,
     api_hash=Config.API_HASH,
     loop=loop,
