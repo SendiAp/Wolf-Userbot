@@ -41,7 +41,7 @@ Wolfcheck = WolfCheck()
 async def startup_process():
     check = await ipchange()
     if check is not None:
-        Wlfcheck.sucess = False
+        Wolfcheck.sucess = False
         return
     await verifyLoggerGroup()
     await load_plugins("plugins")
@@ -58,7 +58,7 @@ async def startup_process():
     if PM_LOGGER_GROUP_ID != -100:
         await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
     await startupmessage()
-    Wlfcheck.sucess = True
+    Wolfcheck.sucess = True
     return
 
 
