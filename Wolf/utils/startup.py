@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 from telethon import Button, functions, types, utils
 
-from dragons import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
+from Wolf import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
 
 from ..Config import Config
 from ..core.logger import logging
@@ -61,7 +61,7 @@ async def startupmessage():
     """
     try:
         if BOTLOG:
-            Config.DRGUBLOGO = await wolf.tgbot.send_file(
+            Config.WOLFLOGO = await wolf.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://telegra.ph/file/248b4cd5adb27bf33f15c.jpg",
                 caption="**Your Wolf-Userbot has been started successfully**",
