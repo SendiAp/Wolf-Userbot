@@ -5,7 +5,7 @@ from . import BASE, SESSION
 
 
 class Wolf_GlobalCollection_Json(BASE):
-    __tablename__ = "drg_globalcollectionjson"
+    __tablename__ = "wlf_globalcollectionjson"
     keywoard = Column(UnicodeText, primary_key=True)
     json = Column(MutableJson)
     njson = Column(NestedMutableJson)
@@ -16,7 +16,7 @@ class Wolf_GlobalCollection_Json(BASE):
         self.njson = njson
 
 
-Drg_GlobalCollection_Json.__table__.create(checkfirst=True)
+Wolf_GlobalCollection_Json.__table__.create(checkfirst=True)
 
 
 def get_collection(keywoard):
