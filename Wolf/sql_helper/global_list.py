@@ -122,7 +122,7 @@ def __load_chat_lists():
         for (keywoard,) in chats:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[keywoard] = []
 
-        all_groups = SESSION.query(WlfGloballist).all()
+        all_groups = SESSION.query(WolfGloballist).all()
         for x in all_groups:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[x.keywoard] += [x.group_id]
 
