@@ -36,13 +36,13 @@ def admin_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
             except BaseException:
                 CMD_LIST.update({file_test: [cmd]})
         else:
-            if len(Config.COMMAND_HAND_LER) == 2:
-                drgreg = "^" + Config.COMMAND_HAND_LER
-                reg = Config.COMMAND_HAND_LER[1]
-            elif len(Config.COMMAND_HAND_LER) == 1:
-                drgreg = "^\\" + Config.COMMAND_HAND_LER
-                reg = Config.COMMAND_HAND_LER
-            args["pattern"] = re.compile(drgreg + pattern)
+            if len(Config.CMD_HANDLER) == 2:
+                wlfreg = "^" + Config.CMD_HANDLER
+                reg = Config.CMD_HANDLER[1]
+            elif len(Config.CMD_HANDLER) == 1:
+                wlfreg = "^\\" + Config.CMD_HANDLER
+                reg = Config.CMD_HANDLER
+            args["pattern"] = re.compile(wlfreg + pattern)
             if command is not None:
                 cmd = reg + command
             else:
@@ -88,13 +88,13 @@ def sudo_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
             except BaseException:
                 SUDO_LIST.update({file_test: [cmd]})
         else:
-            if len(Config.SUDO_COMMAND_HAND_LER) == 2:
-                drgreg = "^" + Config.SUDO_COMMAND_HAND_LER
-                reg = Config.SUDO_COMMAND_HAND_LER[1]
-            elif len(Config.SUDO_COMMAND_HAND_LER) == 1:
-                drgreg = "^\\" + Config.SUDO_COMMAND_HAND_LER
-                reg = Config.COMMAND_HAND_LER
-            args["pattern"] = re.compile(drgreg + pattern)
+            if len(Config.SUDO_CMD_HANDLER) == 2:
+                wlfreg = "^" + Config.SUDO_CMD_HANDLER
+                reg = Config.SUDO_CMD_HANDLER[1]
+            elif len(Config.SUDO_CMD_HANDLER) == 1:
+                wlfreg = "^\\" + Config.SUDO_CMD_HANDLER
+                reg = Config.CMD_HANDLER
+            args["pattern"] = re.compile(wlfreg + pattern)
             if command is not None:
                 cmd = reg + command
             else:
@@ -219,7 +219,7 @@ def register(**args):
 
     def decorator(func):
         if not disable_edited:
-            drgub.add_event_handler(func, MessageEdited(**args))
+            wolf.add_event_handler(func, MessageEdited(**args))
         drgub.add_event_handler(func, NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
