@@ -12,8 +12,8 @@ __license__ = "MIT License"
 __author__ = "Wolf-Userbot <https://github.com/SendiAp/Wolf-Userbot>"
 __copyright__ = "(C) Copyright 2021 Wolf-Userbot  " + __author__
 
-wlf.version = __version__
-wlf.tgbot.version = __version__
+wolf.version = __version__
+wolf.tgbot.version = __version__
 LOGS = logging.getLogger("Wolf-Userbot")
 bot = wolf
 
