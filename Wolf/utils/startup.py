@@ -23,7 +23,7 @@ from .pluginmanager import load_module
 from .tools import create_supergroup
 
 LOGS = logging.getLogger("Wolf-Userbot")
-cmdhr = Config.COMMAND_HAND_LER
+cmdhr = Config.CMD_HANDLER
 
 
 async def setup_bot():
