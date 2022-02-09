@@ -1,5 +1,6 @@
 import sys
 
+import Wolf
 from Wolf import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
 
 from .Config import Config
@@ -16,8 +17,8 @@ from .utils import (
 
 LOGS = logging.getLogger("Wolf-Userbot")
 
-print(wolf.__copyright__)
-print("Licensed di bawah ketentuan " + wolf.__license__)
+print(Wolf.__copyright__)
+print("Licensed di bawah ketentuan " + Wolf.__license__)
 
 cmdhr = Config.CMD_HANDLER
 
