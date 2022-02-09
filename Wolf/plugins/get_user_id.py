@@ -1,6 +1,5 @@
 from telethon.utils import pack_bot_file_id
 
-from Wolf import wlf
 from Wolf.core.logger import logging
 
 from ..core.managers import edit_delete, edit_or_reply
