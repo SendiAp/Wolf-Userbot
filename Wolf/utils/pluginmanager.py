@@ -2,7 +2,7 @@ import importlib
 import sys
 from pathlib import Path
 
-from dragons import CMD_HELP, LOAD_PLUG
+from Wolf import CMD_HELP, LOAD_PLUG
 
 from ..Config import Config
 from ..core import LOADED_CMDS, PLG_INFO
