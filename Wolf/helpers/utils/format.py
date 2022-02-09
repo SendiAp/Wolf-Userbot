@@ -6,7 +6,7 @@ from telethon.tl.tlobject import TLObject
 from telethon.tl.types import MessageEntityPre
 from telethon.utils import add_surrogate
 
-from ..functions.utils import utc_to_local
+from ..funtions.utils import utc_to_local
 from .paste import pastetext
 
 
