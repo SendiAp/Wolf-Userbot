@@ -164,7 +164,7 @@ class WolfUserBotClient(TelegramClient):
                     except BaseException:
                         LOADED_CMDS.update({command[0]: [wrapper]})
                 if edited:
-                    drgub.add_event_handler(
+                    walf.add_event_handler(
                         wrapper,
                         MessageEdited(pattern=REGEX_.regex1, outgoing=True, **kwargs),
                     )
@@ -175,7 +175,7 @@ class WolfUserBotClient(TelegramClient):
                 if allow_sudo and gvarstatus("sudoenable") is not None:
                     if command is None or command[0] in sudo_enabledcmds:
                         if edited:
-                            drgub.add_event_handler(
+                            walf.add_event_handler(
                                 wrapper,
                                 MessageEdited(
                                     pattern=REGEX_.regex2,
@@ -183,7 +183,7 @@ class WolfUserBotClient(TelegramClient):
                                     **kwargs,
                                 ),
                             )
-                        drgub.add_event_handler(
+                        walf.add_event_handler(
                             wrapper,
                             NewMessage(
                                 pattern=REGEX_.regex2,
