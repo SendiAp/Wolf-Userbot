@@ -168,7 +168,7 @@ class WolfUserBotClient(TelegramClient):
                         wrapper,
                         MessageEdited(pattern=REGEX_.regex1, outgoing=True, **kwargs),
                     )
-                drgub.add_event_handler(
+                wolf.add_event_handler(
                     wrapper,
                     NewMessage(pattern=REGEX_.regex1, outgoing=True, **kwargs),
                 )
@@ -199,8 +199,8 @@ class WolfUserBotClient(TelegramClient):
                 except BaseException:
                     LOADED_CMDS.update({file_test: [func]})
                 if edited:
-                    drgub.add_event_handler(func, events.MessageEdited(**kwargs))
-                drgub.add_event_handler(func, events.NewMessage(**kwargs))
+                    wolf.add_event_handler(func, events.MessageEdited(**kwargs))
+                wolf.add_event_handler(func, events.NewMessage(**kwargs))
             return wrapper
 
         return decorator
